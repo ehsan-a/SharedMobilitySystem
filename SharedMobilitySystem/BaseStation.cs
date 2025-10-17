@@ -8,6 +8,12 @@ namespace SharedMobilitySystem
 {
     internal class BaseStation
     {
+        public enum StationType
+        {
+            Motorcycle,
+            Bicycle,
+            Scooter
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -15,5 +21,6 @@ namespace SharedMobilitySystem
         public int Capacity { get; set; }
         public TimeOnly OpenTime { get; set; }
         public TimeOnly CloseTime { get; set; }
+        public StationType Type { get; set; }
     }
 }

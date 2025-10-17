@@ -12,7 +12,7 @@ namespace SharedMobilitySystem
         {
             throw new NotImplementedException();
         }
-        public void Return(int stationId, int transactionId)
+        public Transaction Return(int stationId, int transactionId)
         {
             throw new NotImplementedException();
         }

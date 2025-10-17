@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedMobilitySystem
 {
-    internal class MotorcycleVehicle
+    internal class MotorcycleVehicle : BaseVehicle
     {
     }
 }
