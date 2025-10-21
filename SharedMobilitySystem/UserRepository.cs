@@ -10,22 +10,19 @@ namespace SharedMobilitySystem
     {
         public override void Add(User input)
         {
-            throw new NotImplementedException();
+            Items.Add(input);
         }
-
         public override IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return Items;
         }
-
         public override User GetById(int id)
         {
-            throw new NotImplementedException();
+            return Items.FirstOrDefault(x => x.Id == id);
         }
-
         public override void Remove(User input)
         {
-            throw new NotImplementedException();
+            Items.Remove(input);
         }
     }
 }

@@ -8,5 +8,11 @@ namespace SharedMobilitySystem
 {
     internal class BicycleVehicle : BaseVehicle
     {
+        public BicycleVehicle()
+        {
+            Id = _nextId++;
+            Type = VehicleType.Bicycle;
+            Status = VehicleStatus.Available;
+        }
     }
 }

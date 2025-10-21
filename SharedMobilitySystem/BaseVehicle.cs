@@ -21,6 +21,7 @@ namespace SharedMobilitySystem
             UnderMaintenance
         }
         public int Id { get; set; }
+        public static int _nextId { get; set; } = 1;
         public string Title { get; set; }
         public string Description { get; set; }
         public VehicleType Type { get; set; }

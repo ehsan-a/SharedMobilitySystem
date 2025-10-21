@@ -10,22 +10,19 @@ namespace SharedMobilitySystem
     {
         public override void Add(BaseStation input)
         {
-            throw new NotImplementedException();
+            Items.Add(input);
         }
-
         public override IEnumerable<BaseStation> GetAll()
         {
-            throw new NotImplementedException();
+            return Items;
         }
-
         public override BaseStation GetById(int id)
         {
-            throw new NotImplementedException();
+            return Items.FirstOrDefault(x => x.Id == id);
         }
-
         public override void Remove(BaseStation input)
         {
-            throw new NotImplementedException();
+            Items.Remove(input);
         }
     }
 }

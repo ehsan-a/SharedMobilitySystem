@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SharedMobilitySystem
 {
-    internal class MotorcycleVehicle : BaseVehicle
+    internal class StationA : BaseStation
     {
-        public MotorcycleVehicle()
+        public StationA()
         {
             Id = _nextId++;
-            Type = VehicleType.Motorcycle;
-            Status = VehicleStatus.Available;
+            Type = StationType.A;
+            Capacity = 15;
         }
     }
 }

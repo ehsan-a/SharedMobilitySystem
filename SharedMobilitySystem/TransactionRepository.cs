@@ -10,22 +10,19 @@ namespace SharedMobilitySystem
     {
         public override void Add(Transaction input)
         {
-            throw new NotImplementedException();
+            Items.Add(input);
         }
-
         public override IEnumerable<Transaction> GetAll()
         {
-            throw new NotImplementedException();
+            return Items;
         }
-
         public override Transaction GetById(int id)
         {
-            throw new NotImplementedException();
+            return Items.FirstOrDefault(x => x.Id == id);
         }
-
         public override void Remove(Transaction input)
         {
-            throw new NotImplementedException();
+            Items.Remove(input);
         }
     }
 }
