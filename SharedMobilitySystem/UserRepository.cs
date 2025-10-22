@@ -24,5 +24,9 @@ namespace SharedMobilitySystem
         {
             Items.Remove(input);
         }
+        public User GetByUsernameAndPassword(string username, string password)
+        {
+            return Items.FirstOrDefault(x => x.Username == username && x.Password == password);
+        }
     }
 }

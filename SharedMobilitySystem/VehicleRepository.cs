@@ -24,9 +24,9 @@ namespace SharedMobilitySystem
         {
             Items.Remove(input);
         }
-        public IEnumerable<BaseVehicle> GetByStation(BaseStation station)
+        public IEnumerable<BaseVehicle> GetByStationId(int id)
         {
-            return Items.Where(x => x.Station == station && x.Status == BaseVehicle.VehicleStatus.Available);
+            return Items.Where(x => x.Station.Id == id && x.Status == BaseVehicle.VehicleStatus.Available);
         }
     }
 }

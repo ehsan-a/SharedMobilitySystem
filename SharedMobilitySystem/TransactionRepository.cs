@@ -24,5 +24,9 @@ namespace SharedMobilitySystem
         {
             Items.Remove(input);
         }
+        public Transaction GetByStatus(Transaction.TransactionStatus status)
+        {
+            return Items.FirstOrDefault(x => x.Status == status);
+        }
     }
 }
