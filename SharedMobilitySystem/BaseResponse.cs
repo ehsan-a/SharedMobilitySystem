@@ -15,7 +15,7 @@ namespace SharedMobilitySystem
         StationError = 4,
         TransactionError = 5,
     }
-    public class BaseResponce<T>
+    public class BaseResponse<T>
     {
         public bool Staus { get; set; }
         public ErrorType ErrorType { get; set; }

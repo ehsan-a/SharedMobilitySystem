@@ -19,9 +19,9 @@ namespace SharedMobilitySystem
             TransactionRepository = transactionRepository;
             StationRepository = stationRepository;
         }
-        public BaseResponce<Transaction> Rent(int userId, int vehicleId)
+        public BaseResponse<Transaction> Rent(int userId, int vehicleId)
         {
-            var result = new BaseResponce<Transaction>();
+            var result = new BaseResponse<Transaction>();
             var user = UserRepository.GetById(userId);
             if (user == null)
             {
@@ -47,9 +47,9 @@ namespace SharedMobilitySystem
             result.Output = transaction;
             return result;
         }
-        public BaseResponce<Transaction> Return(int stationId, int transactionId)
+        public BaseResponse<Transaction> Return(int stationId, int transactionId)
         {
-            var result = new BaseResponce<Transaction>();
+            var result = new BaseResponse<Transaction>();
             var station = StationRepository.GetById(stationId);
             if (station == null)
             {
