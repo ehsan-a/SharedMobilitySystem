@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Data
 {
     internal abstract class BaseRepository<T>
     {

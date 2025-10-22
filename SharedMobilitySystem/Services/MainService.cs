@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SharedMobilitySystem.Data;
+using SharedMobilitySystem.Models.Base;
+using SharedMobilitySystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Services
 {
     internal class MainService
     {
@@ -42,7 +45,7 @@ namespace SharedMobilitySystem
                 User = user,
             };
             TransactionRepository.Add(transaction);
-            vehicle.Status = BaseVehicle.VehicleStatus.InUse;
+            vehicle.Status = VehicleStatus.InUse;
             result.Staus = true;
             result.Output = transaction;
             return result;
@@ -67,9 +70,9 @@ namespace SharedMobilitySystem
             result.Staus = true;
             result.Output = transaction;
             transaction.EndTime = DateTime.Now;
-            transaction.Status = Transaction.TransactionStatus.Delivered;
+            transaction.Status = TransactionStatus.Delivered;
             transaction.Vehicle.Station = station;
-            transaction.Vehicle.Status = BaseVehicle.VehicleStatus.Available;
+            transaction.Vehicle.Status = VehicleStatus.Available;
             return result;
         }
     }

@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Models.Base
 {
+    public enum VehicleType
+    {
+        Bicycle,
+        Scooter,
+        Motorcycle
+    }
+    public enum VehicleStatus
+    {
+        Available,
+        InUse,
+        UnderMaintenance
+    }
     internal class BaseVehicle
     {
-        public enum VehicleType
-        {
-            Bicycle,
-            Scooter,
-            Motorcycle
-        }
-        public enum VehicleStatus
-        {
-            Available,
-            InUse,
-            UnderMaintenance
-        }
         public int Id { get; set; }
         public static int _nextId { get; set; } = 1;
         public string Title { get; set; }

@@ -1,10 +1,14 @@
-﻿using System;
+﻿using SharedMobilitySystem.Data;
+using SharedMobilitySystem.Models;
+using SharedMobilitySystem.Models.Base;
+using SharedMobilitySystem.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.UI
 {
     internal class BaseUI
     {
@@ -17,6 +21,8 @@ namespace SharedMobilitySystem
             MainService mainService = new MainService(userRepository, vehicleRepository, transactionRepository, stationRepository);
             StationUI stationUI = new StationUI(stationRepository);
             VehicleUI vehicleUI = new VehicleUI(vehicleRepository);
+            TransactionUI transactionUI = new TransactionUI(transactionRepository);
+            UserUI userUI = new UserUI(userRepository);
             User user1 = new User()
             {
                 FirstName = "Ehsan",
@@ -94,13 +100,31 @@ namespace SharedMobilitySystem
                         if (input == "b") break;
                         vehicleUI.GetById(int.Parse(input));
                         var response = mainService.Rent(currentUser.Id, int.Parse(input));
-                        if(response.Staus) Console.WriteLine("Register Successfull!");
+                        if (response.Staus) Console.WriteLine("Register Successfull!");
                         break;
                     case "3":
+                        transactionUI.GetByStatus(TransactionStatus.Active);
+                        var transaction = transactionRepository.GetByStatus(TransactionStatus.Active);
+                        Console.Write("[1] Delivery | [2] Back => ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.Write("Select a Station ID to Delivery ([b] Back) => ");
+                                int stationId = int.Parse(Console.ReadLine());
+                                if (mainService.Return(stationId, transaction.ToList()[0].Id).Staus)
+                                    Console.WriteLine("Successfull!");
+                                break;
+                            case "2":
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case "4":
+                        transactionUI.GetByStatus(TransactionStatus.Delivered);
                         break;
                     case "5":
+                        userUI.GetById(currentUser.Id);
                         break;
                     case "6":
                         isRun = false;

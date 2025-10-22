@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SharedMobilitySystem.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Data
 {
     internal class TransactionRepository : BaseRepository<Transaction>
     {
@@ -24,9 +25,9 @@ namespace SharedMobilitySystem
         {
             Items.Remove(input);
         }
-        public Transaction GetByStatus(Transaction.TransactionStatus status)
+        public IEnumerable<Transaction> GetByStatus(TransactionStatus status)
         {
-            return Items.FirstOrDefault(x => x.Status == status);
+            return Items.Where(x => x.Status == status);
         }
     }
 }

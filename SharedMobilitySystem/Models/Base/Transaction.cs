@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Models.Base
 {
+    public enum TransactionStatus
+    {
+        Active,
+        Delivered
+    }
+    public enum PaymentStatus
+    {
+        NotPaid,
+        Paid
+    }
     internal class Transaction
     {
-
-        public enum TransactionStatus
-        {
-            Active,
-            Delivered
-        }
-        public enum PaymentStatus
-        {
-            NotPaid,
-            Paid
-        }
         public int Id { get; set; }
         private static int _nextId { get; set; } = 1;
         public User User { get; set; }
@@ -38,16 +37,32 @@ namespace SharedMobilitySystem
         {
             return (EndTime - StartTime).Minutes;
         }
+        public int Duration(DateTime endTime)
+        {
+            return (endTime - StartTime).Minutes;
+        }
         public decimal TotalPrice()
         {
             var duration = Duration();
             if (duration <= 15)
             {
-                return 15 * this.Vehicle.PricePerMinute;
+                return 15 * Vehicle.PricePerMinute;
             }
             else
             {
-                return duration * this.Vehicle.PricePerMinute;
+                return duration * Vehicle.PricePerMinute;
+            }
+        }
+        public decimal TotalPrice(DateTime endTime)
+        {
+            var duration = Duration(endTime);
+            if (duration <= 15)
+            {
+                return 15 * Vehicle.PricePerMinute;
+            }
+            else
+            {
+                return duration * Vehicle.PricePerMinute;
             }
         }
     }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SharedMobilitySystem.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Data
 {
     internal class StationRepository : BaseRepository<BaseStation>
     {

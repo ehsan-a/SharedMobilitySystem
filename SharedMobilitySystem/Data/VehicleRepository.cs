@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SharedMobilitySystem.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Data
 {
     internal class VehicleRepository : BaseRepository<BaseVehicle>
     {
@@ -26,7 +27,7 @@ namespace SharedMobilitySystem
         }
         public IEnumerable<BaseVehicle> GetByStationId(int id)
         {
-            return Items.Where(x => x.Station.Id == id && x.Status == BaseVehicle.VehicleStatus.Available);
+            return Items.Where(x => x.Station.Id == id && x.Status == VehicleStatus.Available);
         }
     }
 }

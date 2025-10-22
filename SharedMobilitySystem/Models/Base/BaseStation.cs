@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.Models.Base
 {
+    public enum StationType
+    {
+        A,
+        B,
+        C
+    }
     internal class BaseStation
     {
-        public enum StationType
-        {
-            A,
-            B,
-            C
-        }
         public int Id { get; set; }
         public static int _nextId { get; set; } = 1;
         public string Title { get; set; }

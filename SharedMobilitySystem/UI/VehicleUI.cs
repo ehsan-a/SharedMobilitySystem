@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SharedMobilitySystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SharedMobilitySystem.BaseVehicle;
+using static SharedMobilitySystem.Models.Base.BaseVehicle;
 
-namespace SharedMobilitySystem
+namespace SharedMobilitySystem.UI
 {
     internal class VehicleUI
     {
