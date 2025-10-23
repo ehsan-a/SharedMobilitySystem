@@ -36,11 +36,20 @@ namespace SharedMobilitySystem.UI
             {
                 Title = "Station 1",
                 Description = "test",
-                Address = "Narmak tehran",
+                Address = "Narmak",
                 OpenTime = new TimeOnly(08, 00),
                 CloseTime = new TimeOnly(22, 00)
             };
             stationRepository.Add(station1);
+            BaseStation station2 = new StationB()
+            {
+                Title = "Station 2",
+                Description = "test",
+                Address = "Resalat",
+                OpenTime = new TimeOnly(12, 00),
+                CloseTime = new TimeOnly(22, 00)
+            };
+            stationRepository.Add(station2);
             BaseVehicle vehicle1 = new MotorcycleVehicle()
             {
                 Title = "Honda",
@@ -57,6 +66,38 @@ namespace SharedMobilitySystem.UI
                 Station = station1
             };
             vehicleRepository.Add(vehicle2);
+            BaseVehicle vehicle3 = new ScooterVehicle()
+            {
+                Title = "Xiaomi",
+                Description = "30 kph",
+                PricePerMinute = 17,
+                Station = station1
+            };
+            vehicleRepository.Add(vehicle3);
+            BaseVehicle vehicle4 = new BicycleVehicle
+            {
+                Title = "Phonix",
+                Description = "5 Gear",
+                PricePerMinute = 8,
+                Station = station2
+            };
+            vehicleRepository.Add(vehicle4);
+            BaseVehicle vehicle5 = new BicycleVehicle
+            {
+                Title = "Phonix",
+                Description = "5 Gear",
+                PricePerMinute = 8,
+                Station = station2
+            };
+            vehicleRepository.Add(vehicle5);
+            BaseVehicle vehicle6 = new BicycleVehicle
+            {
+                Title = "Phonix",
+                Description = "5 Gear",
+                PricePerMinute = 8,
+                Station = station2
+            };
+            vehicleRepository.Add(vehicle6);
 
             User currentUser;
             while (true)
@@ -95,6 +136,11 @@ namespace SharedMobilitySystem.UI
                         }
                         break;
                     case "2":
+                        if (transactionRepository.GetByStatusAndUser(TransactionStatus.Active, currentUser).Count() > 0)
+                        {
+                            Console.WriteLine("You Have Active Transaction!");
+                            break;
+                        }
                         Console.Write("Select a vehicle ID to rent ([b] Back) => ");
                         input = Console.ReadLine();
                         if (input == "b") break;
@@ -103,8 +149,13 @@ namespace SharedMobilitySystem.UI
                         if (response.Staus) Console.WriteLine("Register Successfull!");
                         break;
                     case "3":
-                        transactionUI.GetByStatus(TransactionStatus.Active);
-                        var transaction = transactionRepository.GetByStatus(TransactionStatus.Active);
+                        var transaction = transactionRepository.GetByStatusAndUser(TransactionStatus.Active, currentUser);
+                        if (transaction.ToList().Count == 0)
+                        {
+                            Console.WriteLine("No Data!");
+                            break;
+                        }
+                        transactionUI.GetByStatus(TransactionStatus.Active, currentUser);
                         Console.Write("[1] Delivery | [2] Back => ");
                         switch (Console.ReadLine())
                         {
@@ -121,7 +172,12 @@ namespace SharedMobilitySystem.UI
                         }
                         break;
                     case "4":
-                        transactionUI.GetByStatus(TransactionStatus.Delivered);
+                        if (transactionRepository.GetByStatusAndUser(TransactionStatus.Delivered, currentUser).ToList().Count == 0)
+                        {
+                            Console.WriteLine("No Data!");
+                            break;
+                        }
+                        transactionUI.GetByStatus(TransactionStatus.Delivered, currentUser);
                         break;
                     case "5":
                         userUI.GetById(currentUser.Id);

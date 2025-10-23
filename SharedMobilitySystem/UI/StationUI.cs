@@ -18,16 +18,16 @@ namespace SharedMobilitySystem.UI
         public void GetAll()
         {
             const int pad = 15;
-            Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
+            Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 7, '-')}+");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"| {"#",-4} | {"ID",-pad + 2} | {"TITLE",-pad + 2} | {"ADDRESS",-pad + 2} | {"CAPACITY",-pad + 2} | {"TYPE",-pad + 2} | {"WORKING TIME",-pad - 3} |");
+            Console.WriteLine($"| {"#",-4} | {"ID",-pad + 2} | {"TITLE",-pad + 2} | {"ADDRESS",-pad + 2} | {"CAPACITY",-pad + 2} | {"TYPE",-pad + 2} | {"WORKING TIME",-pad - 5} |");
             Console.ResetColor();
-            Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
+            Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 7, '-')}+");
             int counter = 1;
             foreach (var item in _stationRepository.GetAll())
             {
-                Console.WriteLine($"| {counter,-4} | {item.Id,-pad + 2} | {item.Title,-pad + 2} | {item.Address,-pad + 2} | {item.Capacity,-pad + 2} | {item.Type,-pad + 2} | {item.OpenTime + " - " + item.CloseTime,-pad - 3} |");
-                Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
+                Console.WriteLine($"| {counter,-4} | {item.Id,-pad + 2} | {item.Title,-pad + 2} | {item.Address,-pad + 2} | {item.Capacity,-pad + 2} | {item.Type,-pad + 2} | {item.OpenTime + " - " + item.CloseTime,-pad - 5} |");
+                Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 7, '-')}+");
                 counter++;
             }
         }

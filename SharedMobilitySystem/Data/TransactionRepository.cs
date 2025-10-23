@@ -25,9 +25,9 @@ namespace SharedMobilitySystem.Data
         {
             Items.Remove(input);
         }
-        public IEnumerable<Transaction> GetByStatus(TransactionStatus status)
+        public IEnumerable<Transaction> GetByStatusAndUser(TransactionStatus status, User user)
         {
-            return Items.Where(x => x.Status == status);
+            return Items.Where(x => x.Status == status && x.User == user);
         }
     }
 }
