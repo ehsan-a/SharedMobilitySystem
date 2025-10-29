@@ -21,13 +21,13 @@ namespace SharedMobilitySystem.UI
             const int pad = 15;
             Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"| {"#",-4} | {"ID",-pad + 2} | {"TITLE",-pad + 2} | {"DESCRIPTION",-pad + 2} | {"TYPE",-pad + 2} | {"STATUS",-pad + 2} | {"PRICE PER MIN",-pad - 3} |");
+            Console.WriteLine($"| {"#",-4} | {"ID",-pad + 2} | {"TITLE",-pad + 2} | {"DESCRIPTION",-pad + 2} | {"TYPE",-pad + 2} | {"ADDRESS",-pad + 2} | {"PRICE PER MIN",-pad - 3} |");
             Console.ResetColor();
             Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
             int counter = 1;
             foreach (var item in _vehicleRepository.GetByStationId(id))
             {
-                Console.WriteLine($"| {counter,-4} | {item.Id,-pad + 2} | {item.Title,-pad + 2} | {item.Description,-pad + 2} | {item.Type,-pad + 2} | {item.Status,-pad + 2} | {item.PricePerMinute,-pad - 3} |");
+                Console.WriteLine($"| {counter,-4} | {item.Id,-pad + 2} | {item.Title,-pad + 2} | {item.Description,-pad + 2} | {item.Type,-pad + 2} | {(item.LastLocation == null ? item.Station.Address : item.LastLocation),-pad + 2} | {item.PricePerMinute,-pad - 3} |");
                 Console.WriteLine($"+{"".PadRight(6, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad, '-')}+{"".PadRight(pad + 5, '-')}+");
                 counter++;
             }

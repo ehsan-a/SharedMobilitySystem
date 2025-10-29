@@ -25,5 +25,9 @@ namespace SharedMobilitySystem.Data
         {
             Items.Remove(input);
         }
+        public BaseStation GetByType(StationType type)
+        {
+            return Items.FirstOrDefault(x => x.Type == type);
+        }
     }
 }

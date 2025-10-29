@@ -22,6 +22,7 @@ namespace SharedMobilitySystem.UI
             StationUI stationUI = new StationUI(stationRepository);
             VehicleUI vehicleUI = new VehicleUI(vehicleRepository);
             TransactionUI transactionUI = new TransactionUI(transactionRepository);
+            AuthenticationUI authenticationUI = new AuthenticationUI(userRepository);
             UserUI userUI = new UserUI(userRepository);
             User user1 = new User()
             {
@@ -50,6 +51,15 @@ namespace SharedMobilitySystem.UI
                 CloseTime = new TimeOnly(22, 00)
             };
             stationRepository.Add(station2);
+            BaseStation station3 = new StationC()
+            {
+                Title = "At the city",
+                Description = "Vehicles in the city",
+                Address = "-",
+                OpenTime = new TimeOnly(00, 00),
+                CloseTime = new TimeOnly(00, 00)
+            };
+            stationRepository.Add(station3);
             BaseVehicle vehicle1 = new MotorcycleVehicle()
             {
                 Title = "Honda",
@@ -99,24 +109,34 @@ namespace SharedMobilitySystem.UI
             };
             vehicleRepository.Add(vehicle6);
 
-            User currentUser;
+            User currentUser = null;
             while (true)
             {
-                Console.Write("Username: ");
-                string username = Console.ReadLine();
-                Console.Write("Password: ");
-                string password = Console.ReadLine();
-                var result = userRepository.GetByUsernameAndPassword(username, password);
-                if (result != null)
+                Console.Write("[1] Login - [2] Register => ");
+                switch (Console.ReadLine())
                 {
-                    currentUser = result;
-                    Console.WriteLine($"Welcome {currentUser.FirstName} {currentUser.LastName}");
-                    break;
+                    case "1":
+                        while (true)
+                        {
+                            var user = authenticationUI.Login();
+                            if (user != null)
+                            {
+                                currentUser = user;
+                                break;
+                            }
+                        }
+                        break;
+                    case "2":
+                        while (true)
+                        {
+                            if (authenticationUI.Register()) break;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Out Of Range!");
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("Login Error!");
-                }
+                if (currentUser != null) break;
             }
             bool isRun = true;
             while (isRun)
@@ -141,12 +161,27 @@ namespace SharedMobilitySystem.UI
                             Console.WriteLine("You Have Active Transaction!");
                             break;
                         }
-                        Console.Write("Select a vehicle ID to rent ([b] Back) => ");
-                        input = Console.ReadLine();
-                        if (input == "b") break;
-                        vehicleUI.GetById(int.Parse(input));
-                        var response = mainService.Rent(currentUser.Id, int.Parse(input));
-                        if (response.Staus) Console.WriteLine("Register Successfull!");
+                        while (true)
+                        {
+                            Console.Write("Select a vehicle ID to rent ([b] Back) => ");
+                            input = Console.ReadLine();
+                            if (input == "b") break;
+                            if (!int.TryParse(input, out int id))
+                            {
+                                Console.WriteLine("Input not Valid!");
+                                break;
+                            }
+
+                            if (vehicleRepository.GetById(int.Parse(input)) == null)
+                            {
+                                Console.WriteLine("Error Id!");
+                                continue;
+                            }
+                            vehicleUI.GetById(int.Parse(input));
+                            var response = mainService.Rent(currentUser.Id, int.Parse(input));
+                            if (response.Staus) Console.WriteLine("Register Successfull!");
+                            break;
+                        }
                         break;
                     case "3":
                         var transaction = transactionRepository.GetByStatusAndUser(TransactionStatus.Active, currentUser);
@@ -156,16 +191,25 @@ namespace SharedMobilitySystem.UI
                             break;
                         }
                         transactionUI.GetByStatus(TransactionStatus.Active, currentUser);
-                        Console.Write("[1] Delivery | [2] Back => ");
+                        Console.Write("[1] Delivery In Station | [2] Delivery In City | [3] Back => ");
                         switch (Console.ReadLine())
                         {
                             case "1":
                                 Console.Write("Select a Station ID to Delivery ([b] Back) => ");
-                                int stationId = int.Parse(Console.ReadLine());
+                                input = Console.ReadLine();
+                                if (input == "b") break;
+                                int stationId = int.Parse(input);
                                 if (mainService.Return(stationId, transaction.ToList()[0].Id).Staus)
                                     Console.WriteLine("Successfull!");
                                 break;
                             case "2":
+                                Console.Write("Enter Address To Delivery In City ([b] Back) => ");
+                                string address = Console.ReadLine();
+                                if (address == "b") break;
+                                if (mainService.Return(address, transaction.ToList()[0].Id).Staus)
+                                    Console.WriteLine("Successfull!");
+                                break;
+                            case "3":
                                 break;
                             default:
                                 break;
@@ -178,6 +222,33 @@ namespace SharedMobilitySystem.UI
                             break;
                         }
                         transactionUI.GetByStatus(TransactionStatus.Delivered, currentUser);
+                        Console.Write("[1] Payment | [2] Back => ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.Write("Select a Transaction ID to Payment ([b] Back) => ");
+                                input = Console.ReadLine();
+                                if (input == "b") break;
+                                int transactionId = int.Parse(input);
+                                if (transactionRepository.GetById(transactionId) == null)
+                                {
+                                    Console.WriteLine("Transaction Not found!");
+                                    break;
+                                }
+                                if (transactionRepository.GetById(transactionId).PayStatus == PaymentStatus.NotPaid)
+                                {
+                                    if (transactionRepository.GetById(transactionId).Payment())
+                                        Console.WriteLine("Successfull!");
+                                    else Console.WriteLine("Not Successfull!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Transaction Is Paid!");
+                                }
+                                break;
+                            case "2":
+                                break;
+                        }
                         break;
                     case "5":
                         userUI.GetById(currentUser.Id);

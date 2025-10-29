@@ -72,6 +72,26 @@ namespace SharedMobilitySystem.Services
             transaction.EndTime = DateTime.Now;
             transaction.Status = TransactionStatus.Delivered;
             transaction.Vehicle.Station = station;
+            if (transaction.Vehicle.LastLocation != null) transaction.Vehicle.LastLocation = null;
+            transaction.Vehicle.Status = VehicleStatus.Available;
+            return result;
+        }
+        public BaseResponse<Transaction> Return(string address, int transactionId)
+        {
+            var result = new BaseResponse<Transaction>();
+            var transaction = TransactionRepository.GetById(transactionId);
+            if (transaction == null)
+            {
+                result.Staus = false;
+                result.ErrorType = ErrorType.TransactionError;
+                return result;
+            }
+            result.Staus = true;
+            result.Output = transaction;
+            transaction.EndTime = DateTime.Now;
+            transaction.Status = TransactionStatus.Delivered;
+            transaction.Vehicle.LastLocation = address;
+            transaction.Vehicle.Station = StationRepository.GetByType(StationType.C);
             transaction.Vehicle.Status = VehicleStatus.Available;
             return result;
         }

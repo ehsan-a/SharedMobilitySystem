@@ -65,5 +65,18 @@ namespace SharedMobilitySystem.Models.Base
                 return duration * Vehicle.PricePerMinute;
             }
         }
+        public bool Payment()
+        {
+            if (User.Balance >= TotalPrice())
+            {
+                User.Balance -= TotalPrice();
+                PayStatus = PaymentStatus.Paid;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

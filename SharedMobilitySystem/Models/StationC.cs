@@ -13,7 +13,7 @@ namespace SharedMobilitySystem.Models
         {
             Id = _nextId++;
             Type = StationType.C;
-            Capacity = 20;
+            Capacity = 0;
         }
     }
 }

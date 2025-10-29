@@ -16,7 +16,7 @@ namespace SharedMobilitySystem.Models.Base
     {
         Available,
         InUse,
-        UnderMaintenance
+        UnderMaintenance,
     }
     internal class BaseVehicle
     {
@@ -28,5 +28,6 @@ namespace SharedMobilitySystem.Models.Base
         public decimal PricePerMinute { get; set; }
         public BaseStation Station { get; set; }
         public VehicleStatus Status { get; set; }
+        public string? LastLocation { get; set; }
     }
 }
